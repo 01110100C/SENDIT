@@ -4,11 +4,17 @@ import React from 'react'
 const home = () => {
   return (
     <View>
-      <Text>home</Text>
+      <Text>SEND IT</Text>
     </View>
   )
 }
 
+
+
+
 export default home
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+
+
+})
