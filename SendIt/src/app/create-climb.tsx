@@ -1,0 +1,279 @@
+import { Ionicons } from '@expo/vector-icons';
+import { Image } from 'expo-image';
+import { useRouter } from 'expo-router';
+import { useState } from 'react';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
+import { BOULDER_GRADES, COLORS, FONT_SIZES, ROUTE_GRADES, SPACING } from '@/constants/theme';
+import { useAppStore } from '@/store/AppStore';
+import { pickImage } from '@/utils/pickImage';
+
+type ClimbType = 'boulder' | 'route';
+
+export default function CreateClimb() {
+  const router = useRouter();
+  const { createPost } = useAppStore();
+
+  const [imageUri, setImageUri] = useState<string | null>(null);
+  const [title, setTitle] = useState('');
+  const [climbType, setClimbType] = useState<ClimbType>('boulder');
+  const [grade, setGrade] = useState('');
+  const [location, setLocation] = useState('');
+  const [notes, setNotes] = useState('');
+
+  const grades = climbType === 'boulder' ? BOULDER_GRADES : ROUTE_GRADES;
+  const canSubmit = title.trim().length > 0 && grade.length > 0;
+
+  const choosePhoto = async () => {
+    const uri = await pickImage([4, 5]);
+    if (uri) setImageUri(uri);
+  };
+
+  const switchType = (type: ClimbType) => {
+    setClimbType(type);
+    setGrade('');
+  };
+
+  const submit = () => {
+    if (!canSubmit) return;
+    createPost({
+      imageUri,
+      title: title.trim(),
+      grade,
+      location: location.trim(),
+      notes: notes.trim(),
+    });
+    router.back();
+  };
+
+  return (
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      keyboardVerticalOffset={80}
+    >
+      <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
+        <Pressable style={styles.photo} onPress={choosePhoto}>
+          {imageUri ? (
+            <>
+              <Image source={{ uri: imageUri }} style={StyleSheet.absoluteFill} contentFit="cover" />
+              <View style={styles.changePhoto}>
+                <Text style={styles.changePhotoText}>Change photo</Text>
+              </View>
+            </>
+          ) : (
+            <View style={styles.photoEmpty}>
+              <Ionicons name="camera-outline" size={40} color={COLORS.moss} />
+              <Text style={styles.photoEmptyText}>Add a photo of the climb</Text>
+            </View>
+          )}
+        </Pressable>
+
+        <Text style={styles.label}>Title *</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="e.g. Midnight Lightning"
+          placeholderTextColor={COLORS.muted}
+          value={title}
+          onChangeText={setTitle}
+          maxLength={80}
+        />
+
+        <Text style={styles.label}>Grade *</Text>
+        <View style={styles.segmented}>
+          {(['boulder', 'route'] as const).map((type) => (
+            <Pressable
+              key={type}
+              style={[styles.segment, climbType === type && styles.segmentActive]}
+              onPress={() => switchType(type)}
+            >
+              <Text style={[styles.segmentText, climbType === type && styles.segmentTextActive]}>
+                {type === 'boulder' ? 'Boulder' : 'Route'}
+              </Text>
+            </Pressable>
+          ))}
+        </View>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.gradeList}
+        >
+          {grades.map((g) => (
+            <Pressable
+              key={g}
+              style={[styles.gradeChip, grade === g && styles.gradeChipActive]}
+              onPress={() => setGrade(g)}
+            >
+              <Text style={[styles.gradeChipText, grade === g && styles.gradeChipTextActive]}>
+                {g}
+              </Text>
+            </Pressable>
+          ))}
+        </ScrollView>
+
+        <Text style={styles.label}>Location</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Crag, gym, or area"
+          placeholderTextColor={COLORS.muted}
+          value={location}
+          onChangeText={setLocation}
+          maxLength={100}
+        />
+
+        <Text style={styles.label}>Notes</Text>
+        <TextInput
+          style={[styles.input, styles.notesInput]}
+          placeholder="Beta, conditions, how it felt..."
+          placeholderTextColor={COLORS.muted}
+          value={notes}
+          onChangeText={setNotes}
+          multiline
+          maxLength={1000}
+          textAlignVertical="top"
+        />
+
+        <Pressable
+          style={[styles.submit, !canSubmit && styles.submitDisabled]}
+          onPress={submit}
+          disabled={!canSubmit}
+        >
+          <Text style={styles.submitText}>Post Climb</Text>
+        </Pressable>
+      </ScrollView>
+    </KeyboardAvoidingView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.offwhite,
+  },
+  content: {
+    padding: SPACING.md,
+    paddingBottom: SPACING.xxl,
+  },
+  photo: {
+    width: '100%',
+    aspectRatio: 4 / 5,
+    borderRadius: 12,
+    overflow: 'hidden',
+    backgroundColor: COLORS.card,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderStyle: 'dashed',
+  },
+  photoEmpty: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  photoEmptyText: {
+    marginTop: SPACING.sm,
+    color: COLORS.muted,
+  },
+  changePhoto: {
+    position: 'absolute',
+    bottom: SPACING.sm,
+    right: SPACING.sm,
+    backgroundColor: 'rgba(19, 42, 31, 0.75)',
+    borderRadius: 16,
+    paddingHorizontal: SPACING.sm + 4,
+    paddingVertical: 6,
+  },
+  changePhotoText: {
+    color: COLORS.offwhite,
+    fontWeight: '600',
+  },
+  label: {
+    marginTop: SPACING.md,
+    marginBottom: SPACING.xs,
+    fontWeight: '600',
+    color: COLORS.forest,
+  },
+  input: {
+    backgroundColor: COLORS.card,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderRadius: 10,
+    paddingHorizontal: SPACING.sm + 4,
+    paddingVertical: 10,
+    fontSize: FONT_SIZES.md,
+    color: COLORS.forest,
+  },
+  notesInput: {
+    minHeight: 110,
+  },
+  segmented: {
+    flexDirection: 'row',
+    backgroundColor: COLORS.card,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    padding: 3,
+    marginBottom: SPACING.sm,
+  },
+  segment: {
+    flex: 1,
+    paddingVertical: 8,
+    alignItems: 'center',
+    borderRadius: 8,
+  },
+  segmentActive: {
+    backgroundColor: COLORS.green,
+  },
+  segmentText: {
+    fontWeight: '600',
+    color: COLORS.forest,
+  },
+  segmentTextActive: {
+    color: COLORS.offwhite,
+  },
+  gradeList: {
+    gap: SPACING.sm,
+    paddingVertical: SPACING.xs,
+  },
+  gradeChip: {
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 18,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    backgroundColor: COLORS.card,
+  },
+  gradeChipActive: {
+    backgroundColor: COLORS.gold,
+    borderColor: COLORS.gold,
+  },
+  gradeChipText: {
+    color: COLORS.forest,
+    fontWeight: '600',
+  },
+  gradeChipTextActive: {
+    color: COLORS.forest,
+  },
+  submit: {
+    marginTop: SPACING.lg,
+    backgroundColor: COLORS.green,
+    borderRadius: 12,
+    paddingVertical: 14,
+    alignItems: 'center',
+  },
+  submitDisabled: {
+    opacity: 0.4,
+  },
+  submitText: {
+    color: COLORS.offwhite,
+    fontSize: FONT_SIZES.md,
+    fontWeight: '700',
+  },
+});

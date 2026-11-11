@@ -1,38 +1,57 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import CommunityFeed from './communityfeed'
-import CreatePost from './createpost';
+import { Ionicons } from '@expo/vector-icons';
+import { Stack, useRouter } from 'expo-router';
+import { FlatList, KeyboardAvoidingView, Platform, Pressable, StyleSheet } from 'react-native';
+import CreatePostPrompt from '@/components/CreatePostPrompt';
+import PostCard from '@/components/PostCard';
+import { COLORS, SPACING } from '@/constants/theme';
+import { useAppStore } from '@/store/AppStore';
 
-const home = () => {
+export default function Home() {
+  const router = useRouter();
+  const { posts } = useAppStore();
+
   return (
-    <View style={styles.container}> 
-    <ScrollView
-    contentContainerStyle={styles.scrollContent}
-    showsVerticalScrollIndicator={false}
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      keyboardVerticalOffset={100}
     >
-      <CommunityFeed />
-
-      <CreatePost />
-    </ScrollView>
-    </View>
+      <Stack.Screen
+        options={{
+          title: 'SendIt',
+          headerRight: () => (
+            <Pressable
+              onPress={() => router.push('/create-climb')}
+              hitSlop={8}
+              style={styles.headerButton}
+            >
+              <Ionicons name="add-circle-outline" size={28} color={COLORS.forest} />
+            </Pressable>
+          ),
+        }}
+      />
+      <FlatList
+        data={posts}
+        keyExtractor={(post) => post.id}
+        renderItem={({ item }) => <PostCard post={item} />}
+        ListHeaderComponent={CreatePostPrompt}
+        contentContainerStyle={styles.list}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+      />
+    </KeyboardAvoidingView>
   );
 }
 
-
-
-
-export default home
-
 const styles = StyleSheet.create({
-
   container: {
     flex: 1,
+    backgroundColor: COLORS.offwhite,
   },
-
-  scrollContent: {
-    paddingBottom: 24,
-
+  list: {
+    paddingBottom: SPACING.lg,
   },
-
-
+  headerButton: {
+    marginRight: SPACING.md,
+  },
 });
