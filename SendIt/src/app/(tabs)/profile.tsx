@@ -66,7 +66,7 @@ export default function Profile() {
       <Pressable onPress={changeAvatar} style={styles.avatarWrapper}>
         <Avatar uri={currentUser.avatarUri} name={currentUser.username} size={96} />
         <View style={styles.avatarBadge}>
-          <Ionicons name="camera" size={14} color={COLORS.offwhite} />
+          <Ionicons name="camera" size={14} color={COLORS.onPrimary} />
         </View>
       </Pressable>
 
@@ -95,7 +95,7 @@ export default function Profile() {
             value={bio}
             onChangeText={setBio}
             placeholder="Tell people about your climbing..."
-            placeholderTextColor={COLORS.muted}
+            placeholderTextColor={COLORS.textMuted}
             multiline
             maxLength={300}
             textAlignVertical="top"
@@ -186,7 +186,7 @@ export default function Profile() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.offwhite,
+    backgroundColor: COLORS.background,
   },
   header: {
     alignItems: 'center',
@@ -202,31 +202,31 @@ const styles = StyleSheet.create({
     width: 28,
     height: 28,
     borderRadius: 14,
-    backgroundColor: COLORS.green,
+    backgroundColor: COLORS.primary,
     borderWidth: 2,
-    borderColor: COLORS.offwhite,
+    borderColor: COLORS.background,
     alignItems: 'center',
     justifyContent: 'center',
   },
   username: {
     fontSize: FONT_SIZES.xl,
     fontWeight: '700',
-    color: COLORS.forest,
+    color: COLORS.text,
   },
   since: {
     marginTop: 2,
     fontSize: FONT_SIZES.sm,
     fontWeight: '600',
-    color: COLORS.clay,
+    color: COLORS.primary,
   },
   bio: {
     marginTop: SPACING.sm + 4,
     paddingHorizontal: SPACING.lg,
     textAlign: 'center',
-    color: COLORS.forest,
+    color: COLORS.text,
   },
   bioEmpty: {
-    color: COLORS.muted,
+    color: COLORS.textMuted,
     fontStyle: 'italic',
   },
   stats: {
@@ -240,11 +240,11 @@ const styles = StyleSheet.create({
   statValue: {
     fontSize: FONT_SIZES.lg,
     fontWeight: '700',
-    color: COLORS.forest,
+    color: COLORS.text,
   },
   statLabel: {
     fontSize: FONT_SIZES.xs,
-    color: COLORS.muted,
+    color: COLORS.textMuted,
   },
   form: {
     alignSelf: 'stretch',
@@ -254,17 +254,17 @@ const styles = StyleSheet.create({
     marginTop: SPACING.sm + 4,
     marginBottom: SPACING.xs,
     fontWeight: '600',
-    color: COLORS.forest,
+    color: COLORS.text,
   },
   input: {
-    backgroundColor: COLORS.card,
+    backgroundColor: COLORS.surface,
     borderWidth: 1,
     borderColor: COLORS.border,
     borderRadius: 10,
     paddingHorizontal: SPACING.sm + 4,
     paddingVertical: 10,
     fontSize: FONT_SIZES.md,
-    color: COLORS.forest,
+    color: COLORS.text,
   },
   bioInput: {
     minHeight: 90,
@@ -278,22 +278,22 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
-    backgroundColor: COLORS.green,
+    backgroundColor: COLORS.primary,
     borderRadius: 10,
     paddingVertical: 10,
     alignItems: 'center',
   },
   buttonText: {
-    color: COLORS.offwhite,
+    color: COLORS.onPrimary,
     fontWeight: '700',
   },
   buttonSecondary: {
-    backgroundColor: COLORS.card,
+    backgroundColor: COLORS.surface,
     borderWidth: 1,
     borderColor: COLORS.border,
   },
   buttonSecondaryText: {
-    color: COLORS.forest,
+    color: COLORS.text,
     fontWeight: '700',
   },
   sectionTitle: {
@@ -303,11 +303,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.md,
     fontSize: FONT_SIZES.md,
     fontWeight: '700',
-    color: COLORS.forest,
+    color: COLORS.text,
   },
   empty: {
     textAlign: 'center',
-    color: COLORS.muted,
+    color: COLORS.textMuted,
     marginTop: SPACING.lg,
   },
   tileImage: {
@@ -315,13 +315,13 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   tilePlaceholder: {
-    backgroundColor: COLORS.moss,
+    backgroundColor: COLORS.surface,
     alignItems: 'center',
     justifyContent: 'center',
     padding: SPACING.sm,
   },
   tileTitle: {
-    color: COLORS.offwhite,
+    color: COLORS.text,
     fontWeight: '700',
     textAlign: 'center',
   },
@@ -329,7 +329,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 4,
     left: 4,
-    backgroundColor: COLORS.gold,
+    backgroundColor: COLORS.primary,
     borderRadius: 4,
     paddingHorizontal: 4,
     paddingVertical: 1,
@@ -337,6 +337,6 @@ const styles = StyleSheet.create({
   tileGradeText: {
     fontSize: 10,
     fontWeight: '700',
-    color: COLORS.forest,
+    color: COLORS.onPrimary,
   },
 });

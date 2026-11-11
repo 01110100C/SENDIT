@@ -29,11 +29,11 @@ export default function PostDetail() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.offwhite,
+    backgroundColor: COLORS.background,
   },
   missing: {
     padding: SPACING.lg,
     textAlign: 'center',
-    color: COLORS.muted,
+    color: COLORS.textMuted,
   },
 });

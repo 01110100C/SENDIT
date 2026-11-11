@@ -1,14 +1,28 @@
+// Raw palette
+const PALETTE = {
+  forestDeep: '#132A1F',
+  forest: '#1F3B2C',
+  forestLight: '#2A4A37',
+  forestSunken: '#183022',
+  beige: '#E3D5B3',
+  beigeLight: '#EDE6D1',
+  stone: '#A3A196',
+  stoneDark: '#4C5C52',
+  clay: '#C46A3C',
+};
+
+// What the app uses. Change the theme here, not in individual screens.
 export const COLORS = {
-  forest: '#132A1F',
-  green: '#2E5339',
-  moss: '#6B8F71',
-  gold: '#C9A227',
-  clay: '#A6592F',
-  offwhite: '#EDE6D1',
-  card: '#F7F3E8',
-  muted: '#7A7A6E',
-  border: '#D8D0BA',
-  white: '#FFFFFF',
+  background: PALETTE.forest, // screen background
+  surface: PALETTE.forestLight, // cards, inputs, buttons
+  surfaceSunken: PALETTE.forestSunken, // insets inside cards
+  text: PALETTE.beigeLight, // main text and icons
+  textMuted: PALETTE.stone, // secondary text, placeholders
+  border: PALETTE.stoneDark, // card and input outlines
+  primary: PALETTE.beige, // main buttons, active tab, grade badges
+  onPrimary: PALETTE.forestDeep, // text/icons drawn on top of primary
+  accent: PALETTE.stone, // avatars, placeholder icons
+  like: PALETTE.clay, // liked heart
 };
 
 export const SPACING = {

@@ -1,15 +1,17 @@
 import { Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 import { COLORS } from '@/constants/theme';
 import { AppStoreProvider } from '@/store/AppStore';
 
 export default function RootLayout() {
   return (
     <AppStoreProvider>
+      <StatusBar style="light" />
       <Stack
         screenOptions={{
-          headerStyle: { backgroundColor: COLORS.offwhite },
-          headerTintColor: COLORS.forest,
-          contentStyle: { backgroundColor: COLORS.offwhite },
+          headerStyle: { backgroundColor: COLORS.background },
+          headerTintColor: COLORS.text,
+          contentStyle: { backgroundColor: COLORS.background },
         }}
       >
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />

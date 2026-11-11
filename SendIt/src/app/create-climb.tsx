@@ -66,13 +66,13 @@ export default function CreateClimb() {
             <>
               <Image source={{ uri: imageUri }} style={StyleSheet.absoluteFill} contentFit="cover" />
               <View style={styles.changePhoto}>
-                <Text style={styles.changePhotoText}>Change photo</Text>
+                <Text style={styles.changePhotoText}>Change</Text>
               </View>
             </>
           ) : (
             <View style={styles.photoEmpty}>
-              <Ionicons name="camera-outline" size={40} color={COLORS.moss} />
-              <Text style={styles.photoEmptyText}>Add a photo of the climb</Text>
+              <Ionicons name="camera-outline" size={28} color={COLORS.accent} />
+              <Text style={styles.photoEmptyText}>Add photo</Text>
             </View>
           )}
         </Pressable>
@@ -81,7 +81,7 @@ export default function CreateClimb() {
         <TextInput
           style={styles.input}
           placeholder="e.g. Midnight Lightning"
-          placeholderTextColor={COLORS.muted}
+          placeholderTextColor={COLORS.textMuted}
           value={title}
           onChangeText={setTitle}
           maxLength={80}
@@ -123,7 +123,7 @@ export default function CreateClimb() {
         <TextInput
           style={styles.input}
           placeholder="Crag, gym, or area"
-          placeholderTextColor={COLORS.muted}
+          placeholderTextColor={COLORS.textMuted}
           value={location}
           onChangeText={setLocation}
           maxLength={100}
@@ -133,7 +133,7 @@ export default function CreateClimb() {
         <TextInput
           style={[styles.input, styles.notesInput]}
           placeholder="Beta, conditions, how it felt..."
-          placeholderTextColor={COLORS.muted}
+          placeholderTextColor={COLORS.textMuted}
           value={notes}
           onChangeText={setNotes}
           multiline
@@ -156,18 +156,20 @@ export default function CreateClimb() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.offwhite,
+    backgroundColor: COLORS.background,
   },
   content: {
     padding: SPACING.md,
     paddingBottom: SPACING.xxl,
   },
+  // Same small square as photos in the community feed.
   photo: {
-    width: '100%',
-    aspectRatio: 4 / 5,
-    borderRadius: 12,
+    alignSelf: 'center',
+    width: 130,
+    height: 130,
+    borderRadius: 8,
     overflow: 'hidden',
-    backgroundColor: COLORS.card,
+    backgroundColor: COLORS.surface,
     borderWidth: 1,
     borderColor: COLORS.border,
     borderStyle: 'dashed',
@@ -178,44 +180,46 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   photoEmptyText: {
-    marginTop: SPACING.sm,
-    color: COLORS.muted,
+    marginTop: SPACING.xs,
+    fontSize: FONT_SIZES.xs,
+    color: COLORS.textMuted,
   },
   changePhoto: {
     position: 'absolute',
-    bottom: SPACING.sm,
-    right: SPACING.sm,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    alignItems: 'center',
     backgroundColor: 'rgba(19, 42, 31, 0.75)',
-    borderRadius: 16,
-    paddingHorizontal: SPACING.sm + 4,
-    paddingVertical: 6,
+    paddingVertical: 4,
   },
   changePhotoText: {
-    color: COLORS.offwhite,
+    fontSize: FONT_SIZES.xs,
+    color: COLORS.text,
     fontWeight: '600',
   },
   label: {
     marginTop: SPACING.md,
     marginBottom: SPACING.xs,
     fontWeight: '600',
-    color: COLORS.forest,
+    color: COLORS.text,
   },
   input: {
-    backgroundColor: COLORS.card,
+    backgroundColor: COLORS.surface,
     borderWidth: 1,
     borderColor: COLORS.border,
     borderRadius: 10,
     paddingHorizontal: SPACING.sm + 4,
     paddingVertical: 10,
     fontSize: FONT_SIZES.md,
-    color: COLORS.forest,
+    color: COLORS.text,
   },
   notesInput: {
     minHeight: 110,
   },
   segmented: {
     flexDirection: 'row',
-    backgroundColor: COLORS.card,
+    backgroundColor: COLORS.surface,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: COLORS.border,
@@ -229,14 +233,14 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   segmentActive: {
-    backgroundColor: COLORS.green,
+    backgroundColor: COLORS.primary,
   },
   segmentText: {
     fontWeight: '600',
-    color: COLORS.forest,
+    color: COLORS.text,
   },
   segmentTextActive: {
-    color: COLORS.offwhite,
+    color: COLORS.onPrimary,
   },
   gradeList: {
     gap: SPACING.sm,
@@ -248,22 +252,22 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     borderWidth: 1,
     borderColor: COLORS.border,
-    backgroundColor: COLORS.card,
+    backgroundColor: COLORS.surface,
   },
   gradeChipActive: {
-    backgroundColor: COLORS.gold,
-    borderColor: COLORS.gold,
+    backgroundColor: COLORS.primary,
+    borderColor: COLORS.primary,
   },
   gradeChipText: {
-    color: COLORS.forest,
+    color: COLORS.text,
     fontWeight: '600',
   },
   gradeChipTextActive: {
-    color: COLORS.forest,
+    color: COLORS.onPrimary,
   },
   submit: {
     marginTop: SPACING.lg,
-    backgroundColor: COLORS.green,
+    backgroundColor: COLORS.primary,
     borderRadius: 12,
     paddingVertical: 14,
     alignItems: 'center',
@@ -272,7 +276,7 @@ const styles = StyleSheet.create({
     opacity: 0.4,
   },
   submitText: {
-    color: COLORS.offwhite,
+    color: COLORS.onPrimary,
     fontSize: FONT_SIZES.md,
     fontWeight: '700',
   },

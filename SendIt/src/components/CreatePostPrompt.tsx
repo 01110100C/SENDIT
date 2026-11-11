@@ -15,7 +15,7 @@ export default function CreatePostPrompt() {
       <View style={styles.promptBox}>
         <Text style={styles.promptText}>Log a climb...</Text>
       </View>
-      <Ionicons name="camera-outline" size={26} color={COLORS.green} />
+      <Ionicons name="camera-outline" size={26} color={COLORS.primary} />
     </Pressable>
   );
 }
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     padding: SPACING.sm + 4,
     margin: SPACING.sm + 4,
     borderRadius: 12,
-    backgroundColor: COLORS.card,
+    backgroundColor: COLORS.surface,
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: COLORS.border,
   },
@@ -37,9 +37,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     marginHorizontal: SPACING.sm,
     borderRadius: 20,
-    backgroundColor: COLORS.offwhite,
+    backgroundColor: COLORS.surfaceSunken,
   },
   promptText: {
-    color: COLORS.muted,
+    color: COLORS.textMuted,
   },
 });

@@ -34,7 +34,7 @@ export default function PostCard({ post, expanded = false }: Props) {
     <Image source={{ uri: post.imageUri }} style={imageStyle} contentFit="cover" />
   ) : (
     <View style={[imageStyle, styles.imagePlaceholder]}>
-      <Ionicons name="image-outline" size={expanded ? 40 : 28} color={COLORS.moss} />
+      <Ionicons name="image-outline" size={expanded ? 40 : 28} color={COLORS.accent} />
     </View>
   );
 
@@ -87,11 +87,11 @@ export default function PostCard({ post, expanded = false }: Props) {
           <Ionicons
             name={liked ? 'heart' : 'heart-outline'}
             size={26}
-            color={liked ? COLORS.clay : COLORS.forest}
+            color={liked ? COLORS.like : COLORS.text}
           />
         </Pressable>
         <Pressable onPress={() => setCommenting((c) => !c)} hitSlop={8} style={styles.actionButton}>
-          <Ionicons name="chatbubble-outline" size={24} color={COLORS.forest} />
+          <Ionicons name="chatbubble-outline" size={24} color={COLORS.text} />
         </Pressable>
       </View>
 
@@ -120,7 +120,7 @@ export default function PostCard({ post, expanded = false }: Props) {
             <TextInput
               style={styles.commentInput}
               placeholder="Add a comment..."
-              placeholderTextColor={COLORS.muted}
+              placeholderTextColor={COLORS.textMuted}
               value={draft}
               onChangeText={setDraft}
               onSubmitEditing={submitComment}
@@ -141,7 +141,7 @@ export default function PostCard({ post, expanded = false }: Props) {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: COLORS.card,
+    backgroundColor: COLORS.surface,
     marginBottom: SPACING.md,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderBottomWidth: StyleSheet.hairlineWidth,
@@ -168,15 +168,15 @@ const styles = StyleSheet.create({
   },
   username: {
     fontWeight: '600',
-    color: COLORS.forest,
+    color: COLORS.text,
   },
   location: {
     fontSize: FONT_SIZES.xs,
-    color: COLORS.muted,
+    color: COLORS.textMuted,
   },
   time: {
     fontSize: FONT_SIZES.xs,
-    color: COLORS.muted,
+    color: COLORS.textMuted,
   },
   inset: {
     paddingHorizontal: SPACING.sm + 4,
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
     aspectRatio: 4 / 5,
   },
   imagePlaceholder: {
-    backgroundColor: COLORS.border,
+    backgroundColor: COLORS.surfaceSunken,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
   likes: {
     textAlign: 'center',
     fontWeight: '600',
-    color: COLORS.forest,
+    color: COLORS.text,
     marginBottom: SPACING.xs,
   },
   titleRow: {
@@ -229,11 +229,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: FONT_SIZES.md,
     fontWeight: '700',
-    color: COLORS.forest,
+    color: COLORS.text,
     flexShrink: 1,
   },
   gradeBadge: {
-    backgroundColor: COLORS.gold,
+    backgroundColor: COLORS.primary,
     borderRadius: 6,
     paddingHorizontal: 6,
     paddingVertical: 2,
@@ -242,19 +242,19 @@ const styles = StyleSheet.create({
   gradeText: {
     fontSize: FONT_SIZES.xs,
     fontWeight: '700',
-    color: COLORS.forest,
+    color: COLORS.onPrimary,
   },
   notes: {
     textAlign: 'center',
-    color: COLORS.forest,
+    color: COLORS.text,
     marginBottom: SPACING.xs,
   },
   viewAll: {
-    color: COLORS.muted,
+    color: COLORS.textMuted,
     marginBottom: SPACING.xs,
   },
   comment: {
-    color: COLORS.forest,
+    color: COLORS.text,
     marginBottom: 2,
   },
   commentInputRow: {
@@ -266,10 +266,10 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: SPACING.sm,
     paddingVertical: SPACING.xs,
-    color: COLORS.forest,
+    color: COLORS.text,
   },
   postButton: {
-    color: COLORS.green,
+    color: COLORS.primary,
     fontWeight: '700',
   },
   postButtonDisabled: {

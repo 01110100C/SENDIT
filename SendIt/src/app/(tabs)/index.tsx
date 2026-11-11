@@ -25,7 +25,7 @@ export default function Home() {
               hitSlop={8}
               style={styles.headerButton}
             >
-              <Ionicons name="add-circle-outline" size={28} color={COLORS.forest} />
+              <Ionicons name="add-circle-outline" size={28} color={COLORS.text} />
             </Pressable>
           ),
         }}
@@ -46,7 +46,7 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.offwhite,
+    backgroundColor: COLORS.background,
   },
   list: {
     paddingBottom: SPACING.lg,

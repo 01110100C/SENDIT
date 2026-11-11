@@ -26,14 +26,14 @@ export default function Avatar({ uri, name, size = 36 }: Props) {
 
 const styles = StyleSheet.create({
   base: {
-    backgroundColor: COLORS.moss,
+    backgroundColor: COLORS.accent,
   },
   fallback: {
     alignItems: 'center',
     justifyContent: 'center',
   },
   initial: {
-    color: COLORS.offwhite,
+    color: COLORS.onPrimary,
     fontWeight: '700',
   },
 });
