@@ -25,6 +25,13 @@ export const COLORS = {
   like: PALETTE.clay, // liked heart
 };
 
+// Arcade pixel font, loaded in src/app/_layout.tsx.
+// Pixel fonts run wide, so use smaller font sizes than usual with them.
+export const FONTS = {
+  logo: 'PressStart2P_400Regular', // "SendIt" logo
+  retro: 'PressStart2P_400Regular', // nav labels and screen titles
+};
+
 export const SPACING = {
   xs: 4,
   sm: 8,

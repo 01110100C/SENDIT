@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import type { ComponentProps } from 'react';
 import type { ColorValue } from 'react-native';
-import { COLORS } from '@/constants/theme';
+import TopNavBar from '@/components/TopNavBar';
 
 type IconName = ComponentProps<typeof Ionicons>['name'];
 
@@ -15,14 +15,8 @@ const tabIcon =
 export default function TabsLayout() {
   return (
     <Tabs
-      screenOptions={{
-        headerStyle: { backgroundColor: COLORS.background },
-        headerTintColor: COLORS.text,
-        headerTitleStyle: { fontWeight: '700' },
-        tabBarStyle: { backgroundColor: COLORS.background, borderTopColor: COLORS.border },
-        tabBarActiveTintColor: COLORS.primary,
-        tabBarInactiveTintColor: COLORS.textMuted,
-      }}
+      tabBar={(props) => <TopNavBar {...props} />}
+      screenOptions={{ headerShown: false, tabBarPosition: 'top' }}
     >
       <Tabs.Screen name="index" options={{ title: 'Home', tabBarIcon: tabIcon('home') }} />
       <Tabs.Screen name="profile" options={{ title: 'Profile', tabBarIcon: tabIcon('person') }} />
