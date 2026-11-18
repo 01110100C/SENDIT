@@ -39,7 +39,21 @@ A social app for climbers. Log the climbs you send, share them with the communit
 - Tap a gym in the list to fly to it on the map, or tap a pin to highlight it in the list
 
 ### Rank
-- Leaderboards that rank climbers by their logged sends
+- Monthly leaderboard of the top 25 climbers in your tier, reset at the start of every month
+- Points: **5 per climb posted + 10 per grade** (V0 = 5, V1 = 15, V4 = 45). Routes count as their V-scale equivalent (5.12d = V5)
+- Seven stone tiers, climbed by earning points during the month:
+
+| Tier | Monthly points |
+|---|---|
+| Emerald | 4000+ |
+| Diamond | 2500+ |
+| Ruby | 1500+ |
+| Quartz | 800+ |
+| Granite | 400+ |
+| Silver | 150+ |
+| Bedrock | 0+ |
+
+- Your card shows your tier, points, position, and progress to the next tier
 
 ## Tech stack
 
@@ -50,6 +64,7 @@ A social app for climbers. Log the climbs you send, share them with the communit
 | **Platform / tooling** | [Expo](https://expo.dev) SDK 57 |
 | **Navigation** | [Expo Router](https://docs.expo.dev/router/introduction/) (file-based routing, typed routes) |
 | **Backend** | [Supabase](https://supabase.com): Postgres database, authentication, and photo storage |
+| **Leaderboard** | [Redis](https://redis.io) sorted sets, one per month, for fast ranking queries |
 | **Maps** | `react-native-maps` (Apple Maps on iOS, Google Maps on Android) |
 | **Gym search** | [Google Places API](https://developers.google.com/maps/documentation/places/web-service/text-search), with [OpenStreetMap](https://www.openstreetmap.org) as a fallback, and [Zippopotam.us](https://zippopotam.us) for zip code lookup |
 | **Images** | `expo-image` for display, `expo-image-picker` for uploads |
@@ -113,12 +128,14 @@ SendIt/
     │   │   ├── profile.tsx   Profile
     │   │   ├── train.tsx     Training chatbot
     │   │   ├── finder.tsx    Climbing gym finder (map + zip search)
-    │   │   └── ranked.tsx    Leaderboards
+    │   │   └── ranked.tsx    Monthly leaderboard
     │   ├── create-climb.tsx  Log a climb (opens as a modal)
     │   └── post/[id].tsx     Single climb with all comments
     ├── components/           Reusable UI (PostCard, Avatar, TopNavBar, GymMap, ...)
     ├── constants/theme.ts    Colors, spacing, font sizes, grade lists
+    ├── constants/ranks.ts    Point rules and rank tiers
     ├── services/gyms.ts      Zip code lookup and climbing gym search
+    ├── services/leaderboard.ts  Monthly scores and leaderboard
     ├── store/AppStore.tsx    App data and actions
     └── utils/pickImage.ts    Photo library picker helper
 ```
